@@ -6,7 +6,7 @@ pipeline{
                 git url: 'https://github.com/prabhjot219/node-todo-cicd.git', branch: 'master'
             }
         }
-        stage('Build'){
+        stage('Build and Test'){
             steps{
                 sh 'docker build . -t pk219/node-todo:latest'
             }
@@ -17,11 +17,6 @@ pipeline{
                     sh "docker login -u ${env.dockerhubusername} -p ${env.dockerhubpassword}"
                     sh 'docker image push pk219/node-todo:latest'
                 }
-            }
-        }
-        stage('Test'){
-            steps{
-                echo "Testing from github"
             }
         }
         stage('Deploy'){
